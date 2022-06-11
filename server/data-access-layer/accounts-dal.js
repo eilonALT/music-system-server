@@ -13,7 +13,7 @@ const getActiveAccountsFromDB = async (offset, limit) => {
         )
         result.success = true
         result.data = res[0]
-        result.status = 200
+        result.status = 200 // 200 is the status code for success
         return result
 
     } catch (err) {

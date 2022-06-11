@@ -14,7 +14,7 @@ const getSongsByCollectioIdFromDB = async (collectionId, offset, limit) => {
         )
         result.success = true
         result.data = res[0]
-        result.status = 200
+        result.status = 200 // 200 is the status code for success
         return result
 
     } catch (err) {
@@ -38,7 +38,7 @@ const getSongsByUserIdFromDB = async (userId, offset, limit) => {
         )
         result.success = true
         result.data = res[0]
-        result.status = 200
+        result.status = 200 // 200 is the status code for success
         return result
 
     } catch (err) {
@@ -63,7 +63,7 @@ const getSongsFieldFromDB = async (offset, limit) => {
         )
         result.success = true
         result.data = res[0]
-        result.status = 200
+        result.status = 200 // 200 is the status code for success
         return result
 
     } catch (err) {
