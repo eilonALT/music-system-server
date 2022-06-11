@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  mysqldb:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=music-system
+    volumes:
+      - db:/var/lib/mysql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+
+  api:
+    depends_on:
+      - mysqldb
+    build: ./server
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    networks:
+      - backend
+      - frontend
+    volumes:
+      - ./server:/server
+volumes:
+  db:
+networks:
+  backend:
+  frontend:
