@@ -10,7 +10,7 @@ const getEmptyCollectionsFromDB = async (offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT * FROM Collections WHERE number_of_songs = 0 LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT * FROM collections WHERE number_of_songs = 0 LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
@@ -35,7 +35,7 @@ const getCollectionsByAccountIdFromDB = async (accountId, offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT * FROM Collections WHERE account_id = ${accountId} LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT * FROM collections WHERE account_id = ${accountId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
@@ -59,7 +59,7 @@ const getCollectionsBySongIdFromDB = async (songId, offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT * FROM Collections JOIN Song_Collection ON Collections.id = Song_Collection.collection_id WHERE Song_Collection.song_id = ${songId} LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT * FROM collections JOIN song_collection ON collections.id = song_collection.collection_id WHERE song_collection.song_id = ${songId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]

@@ -11,7 +11,7 @@ const getSongsByCollectioIdFromDB = async (collectionId, offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT * FROM Songs JOIN Song_Collection ON Songs.id = Song_Collection.song_id WHERE Song_Collection.collection_id = ${collectionId} LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT * FROM songs JOIN song_collection ON songs.id = song_collection.song_id WHERE song_collection.collection_id = ${collectionId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
@@ -36,7 +36,7 @@ const getSongsByAccountIdFromDB = async (accountId, offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT Songs.name,Songs.duration,Songs.rate FROM Songs JOIN Song_Collection ON songs.id = Song_Collection.song_id JOIN Collections ON Song_Collection.collection_id = Collections.id WHERE Collections.account_id = ${accountId} LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT songs.name,songs.duration,songs.rate FROM songs JOIN song_collection ON songs.id = song_collection.song_id JOIN collections ON song_collection.collection_id = collections.id WHERE collections.account_id = ${accountId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
@@ -62,7 +62,7 @@ const getSongsFieldFromDB = async (offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT Songs.name, Collections.title FROM Songs JOIN Song_Collection ON Songs.id = Song_Collection.song_id JOIN Collections ON Song_Collection.collection_id = Collections.id LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT songs.name, collections.title FROM songs JOIN song_collection ON songs.id = song_collection.song_id JOIN collections ON song_collection.collection_id = collections.id LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]

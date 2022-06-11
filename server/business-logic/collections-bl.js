@@ -27,7 +27,7 @@ const getCollections = async (query) => {
     const offset = (page - 1) * PAGE_SIZE;
     const limit = PAGE_SIZE;
 
-    if (Number(query.number_of_songs)) {
+    if (query.number_of_songs) {
         const collections = await collectionsDal.getEmptyCollectionsFromDB(offset, limit);
         return collections;
     }
