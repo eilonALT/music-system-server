@@ -9,6 +9,7 @@ const getActiveAccountsFromDB = async (offset, limit) => {
     }
 
     try {
+        // i created a query to get the accounts that are active with the isActive index to improve the performance of the application
         let res = await connection.promise().query(
             `SELECT * FROM accounts WHERE is_active = 1 LIMIT ${offset ? offset + ',' : ''}${limit};`
         )

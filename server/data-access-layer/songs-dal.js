@@ -27,7 +27,7 @@ const getSongsByCollectioIdFromDB = async (collectionId, offset, limit) => {
     }
 }
 
-const getSongsByUserIdFromDB = async (userId, offset, limit) => {
+const getSongsByAccountIdFromDB = async (accountId, offset, limit) => {
     let result = {
         success: false,
         data: null,
@@ -36,7 +36,7 @@ const getSongsByUserIdFromDB = async (userId, offset, limit) => {
 
     try {
         let res = await connection.promise().query(
-            `SELECT Songs.name,Songs.duration,Songs.rate FROM Songs JOIN Song_Collection ON songs.id = Song_Collection.song_id JOIN Collections ON Song_Collection.collection_id = Collections.id WHERE Collections.account_id = ${userId} LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT Songs.name,Songs.duration,Songs.rate FROM Songs JOIN Song_Collection ON songs.id = Song_Collection.song_id JOIN Collections ON Song_Collection.collection_id = Collections.id WHERE Collections.account_id = ${accountId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
@@ -80,6 +80,6 @@ const getSongsFieldFromDB = async (offset, limit) => {
 
 export default {
     getSongsByCollectioIdFromDB,
-    getSongsByUserIdFromDB,
+    getSongsByAccountIdFromDB,
     getSongsFieldFromDB
 }
