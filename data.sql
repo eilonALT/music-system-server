@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Accounts`(
     `is_active` BOOLEAN NOT NULL,
     PRIMARY KEY (`id`)
 );
-
+CREATE INDEX `idx_Accounts_is_active` ON `Accounts` (`is_active`);
 
 CREATE TABLE IF NOT EXISTS `Collections`(
     `id` INT NOT NULL AUTO_INCREMENT,
