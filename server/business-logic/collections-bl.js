@@ -1,4 +1,6 @@
 import collectionsDal from "../data-access-layer/collections-dal.js";
+
+// page size creates a limit of 50 collections per page and helps to improve the performance of the application in case of large number of collections
 const PAGE_SIZE = 50;
 
 const getCollections = async (query) => {
@@ -6,6 +8,7 @@ const getCollections = async (query) => {
         query.page = 1;
     }
     const page = Number(query.page);
+    //implementing offset and limit to help to paginate the collections
     const offset = (page - 1) * PAGE_SIZE;
     const limit = PAGE_SIZE;
 
@@ -25,7 +28,7 @@ const getCollections = async (query) => {
         return {
             success: false,
             data: null,
-            message: "number_of_songs query must be 0 or accountId and songId must be provided",
+            message: "number_of_songs query must be 0 or accountId or songId must be provided",
             status: 400,
         };
     }
