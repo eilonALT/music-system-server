@@ -1,4 +1,5 @@
-import connection from '../db.js';
+import connection from './db.js';
+import { StatusCodes } from 'http-status-codes';
 
 const getActiveAccountsFromDB = async (offset, limit) => {
     let result = {
@@ -13,12 +14,13 @@ const getActiveAccountsFromDB = async (offset, limit) => {
         )
         result.success = true
         result.data = res[0]
-        result.status = 200 // 200 is the status code for success
+        result.status = StatusCodes.OK
         return result
 
     } catch (err) {
         result.success = false
         result.data = err
+        result.status = StatusCodes.INTERNAL_SERVER_ERROR
 
         return result
     }

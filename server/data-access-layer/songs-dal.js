@@ -1,25 +1,27 @@
-import connection from '../db.js';
+import connection from './db.js';
+import { StatusCodes } from 'http-status-codes';
 
 
 const getSongsByCollectioIdFromDB = async (collectionId, offset, limit) => {
     let result = {
         success: false,
         data: null,
-        status: null
+        status: StatusCodes.INTERNAL_SERVER_ERROR
     }
 
     try {
         let res = await connection.promise().query(
-            `SELECT * FROM Songs WHERE id IN (SELECT song_id FROM Song_Collection WHERE collection_id = ${collectionId}) LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT * FROM Songs JOIN Song_Collection ON Songs.id = Song_Collection.song_id WHERE Song_Collection.collection_id = ${collectionId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
-        result.status = 200 // 200 is the status code for success
+        result.status = StatusCodes.OK
         return result
 
     } catch (err) {
         result.success = false
         result.data = err
+        result.status = StatusCodes.INTERNAL_SERVER_ERROR
 
         return result
     }
@@ -29,21 +31,22 @@ const getSongsByUserIdFromDB = async (userId, offset, limit) => {
     let result = {
         success: false,
         data: null,
-        status: null
+        status: StatusCodes.INTERNAL_SERVER_ERROR
     }
 
     try {
         let res = await connection.promise().query(
-            `SELECT * FROM Songs WHERE id IN (SELECT song_id FROM Song_Collection WHERE collection_id IN (SELECT id FROM Collections WHERE account_id = ${userId})) LIMIT ${offset ? offset + ',' : ''}${limit};`
+            `SELECT Songs.name,Songs.duration,Songs.rate FROM Songs JOIN Song_Collection ON songs.id = Song_Collection.song_id JOIN Collections ON Song_Collection.collection_id = Collections.id WHERE Collections.account_id = ${userId} LIMIT ${offset ? offset + ',' : ''}${limit};`
         )
         result.success = true
         result.data = res[0]
-        result.status = 200 // 200 is the status code for success
+        result.status = StatusCodes.OK
         return result
 
     } catch (err) {
         result.success = false
         result.data = err
+        result.status = StatusCodes.INTERNAL_SERVER_ERROR
 
         return result
     }
@@ -54,7 +57,7 @@ const getSongsFieldFromDB = async (offset, limit) => {
     let result = {
         success: false,
         data: null,
-        status: null
+        status: StatusCodes.INTERNAL_SERVER_ERROR
     }
 
     try {
@@ -63,12 +66,13 @@ const getSongsFieldFromDB = async (offset, limit) => {
         )
         result.success = true
         result.data = res[0]
-        result.status = 200 // 200 is the status code for success
+        result.status = StatusCodes.OK
         return result
 
     } catch (err) {
         result.success = false
         result.data = err
+        result.status = StatusCodes.INTERNAL_SERVER_ERROR
 
         return result
     }

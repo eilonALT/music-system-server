@@ -93,7 +93,7 @@ INSERT INTO `Song_Collection`(`song_id`, `collection_id`) VALUES (6, 2);
 
 
 -- Get collections by AccountsId.
-SELECT * FROM `Collections` WHERE `account_id` = 1 OFFSET 0 LIMIT 10;
+SELECT * FROM `Collections` WHERE `account_id` = 1;
 
 --  Get all empty collections
 SELECT * FROM `Collections` WHERE `number_of_songs` = 0;
@@ -102,13 +102,12 @@ SELECT * FROM `Collections` WHERE `number_of_songs` = 0;
 SELECT * FROM `Accounts` WHERE `is_active` = 1;
 
 --  Get songs by CollectionId
-SELECT * FROM `Songs` WHERE `id` IN (SELECT `song_id` FROM `Song_Collection` WHERE `collection_id` = 1);
+SELECT * FROM `Songs` JOIN `Song_Collection` ON `Songs`.`id` = `Song_Collection`.`song_id` WHERE `Song_Collection`.`collection_id` = 1;
 
 --   Get collections by SongId
-SELECT * FROM `Collections` WHERE `id` IN (SELECT `collection_id` FROM `Song_Collection` WHERE `song_id` = 1);
+SELECT * FROM `Collections` JOIN `Song_Collection` ON `Collections`.`id` = `Song_Collection`.`collection_id` WHERE `Song_Collection`.`song_id` = 1;
 
 --  Get all songs by UserId (use Collection).
-SELECT * FROM `Songs` WHERE `id` IN (SELECT `song_id` FROM `Song_Collection` WHERE `collection_id` IN (SELECT `id` FROM `Collections` WHERE `account_id` = 1));
-
+SELECT `Songs`.`name`,`Songs`.`duration`,`Songs`.`rate` FROM `Songs` JOIN `Song_Collection` ON `songs`.`id` = `Song_Collection`.`song_id` JOIN `Collections` ON `Song_Collection`.`collection_id` = `Collections`.`id` WHERE `Collections`.`account_id` = 1;
 -- Get all songs and for each one - display collection Tittle.
 SELECT `Songs`.`name`, `Collections`.`title` FROM `Songs` JOIN `Song_Collection` ON `Songs`.`id` = `Song_Collection`.`song_id` JOIN `Collections` ON `Song_Collection`.`collection_id` = `Collections`.`id`;
