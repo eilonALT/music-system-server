@@ -7,6 +7,8 @@ import { songsRouter } from './controllers/songs-controller.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+
 app.use("/api/music-system/", accountsRouter);
 app.use("/api/music-system/", collectionsRouter);
 app.use("/api/music-system/", songsRouter);

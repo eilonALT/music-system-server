@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `song_collection`(
     FOREIGN KEY (`collection_id`) REFERENCES `collections`(`id`)
 );
 
-
+-- i would have done it in server bl but i am not implementing post requests nor delete requests
 -- function to  update the number of songs in a collection
 DELIMITER //
 CREATE PROCEDURE `update_number_of_songs` (idNum INT)

@@ -2,6 +2,7 @@ import mysql from 'mysql2';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// im not using secrets or env variables for now
 const connection = mysql.createConnection({
     host: 'mysqldb',
     user: 'root',

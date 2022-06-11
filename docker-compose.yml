@@ -8,10 +8,10 @@ services:
       - MYSQL_DATABASE=music-system
     volumes:
       - db:/var/lib/mysql
-      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql #run data.sql when start
     ports:
       - "3307:3306"
-    healthcheck:
+    healthcheck: # api will wait for mysql to be ready - and complete the test
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
@@ -21,7 +21,7 @@ services:
   api:
     depends_on:
       mysqldb:
-        condition: service_healthy
+        condition: service_healthy # api will wait for mysql to be ready
     build: ./server
     restart: unless-stopped
     ports:
@@ -30,7 +30,7 @@ services:
       - backend
       - frontend
     volumes:
-      - ./server:/server
+      - ./server:/server 
 volumes:
   db:
 networks:
