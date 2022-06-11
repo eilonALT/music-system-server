@@ -13,8 +13,7 @@ You need to write the following commands on the terminal screen so that you can 
 2. docker-compose up
 ```
 
-# no docker:
-
+# No docker:
 If you dont have docker you should run the data.sql script in any sql server, and change the server/data-access-layer/db.js
 file to your own sql server settings.
 
