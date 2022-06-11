@@ -108,6 +108,6 @@ SELECT * FROM `Songs` JOIN `Song_Collection` ON `Songs`.`id` = `Song_Collection`
 SELECT * FROM `Collections` JOIN `Song_Collection` ON `Collections`.`id` = `Song_Collection`.`collection_id` WHERE `Song_Collection`.`song_id` = 1;
 
 --  Get all songs by UserId (use Collection).
-SELECT `Songs`.`name`,`Songs`.`duration`,`Songs`.`rate` FROM `Songs` JOIN `Song_Collection` ON `songs`.`id` = `Song_Collection`.`song_id` JOIN `Collections` ON `Song_Collection`.`collection_id` = `Collections`.`id` WHERE `Collections`.`account_id` = 1;
+SELECT `Songs`.`name`,`Songs`.`duration`,`Songs`.`rate` FROM `Songs` JOIN `Song_Collection` ON `Songs`.`id` = `Song_Collection`.`song_id` JOIN `Collections` ON `Song_Collection`.`collection_id` = `Collections`.`id` WHERE `Collections`.`account_id` = 1;
 -- Get all songs and for each one - display collection Tittle.
 SELECT `Songs`.`name`, `Collections`.`title` FROM `Songs` JOIN `Song_Collection` ON `Songs`.`id` = `Song_Collection`.`song_id` JOIN `Collections` ON `Song_Collection`.`collection_id` = `Collections`.`id`;

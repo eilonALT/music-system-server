@@ -9,11 +9,11 @@ dotenv.config();
 // const PORT = process.env.PORT;
 
 const connection = mysql.createConnection({
-    host: mysqldb,
-    user: root,
-    password: 123456,
-    database: music-system,
-    port: 3306
+    host: 'mysqldb',
+    user: 'root',
+    password: '123456',
+    database: 'music-system',
+    port: '3306'
 });
 
 export default connection;
