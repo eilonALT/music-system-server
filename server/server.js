@@ -11,9 +11,6 @@ app.use("/api/music-system/", accountsRouter);
 app.use("/api/music-system/", collectionsRouter);
 app.use("/api/music-system/", songsRouter);
 
-setTimeout(() => {
-    //dokcer compose depends_on function not working so good.
-    app.listen(5000, () => {
-        console.log('Server is running on port 5000');
-    })
-}, 10000);
+app.listen(5000, () => {
+    console.log('Server is running on port 5000');
+})
